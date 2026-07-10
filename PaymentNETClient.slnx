@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="PaymentNET.Standard/PaymentNET.Standard.csproj" />
+  <Project Path="PaymentNET/PaymentNET.csproj" />
+</Solution>
