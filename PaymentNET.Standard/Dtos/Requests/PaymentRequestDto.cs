@@ -9,20 +9,17 @@ namespace PaymentNET.Standard.Dtos.Requests
     /// </summary>
     public class PaymentRequestDto
     {
+        public string Description { get; set; } = string.Empty;
+        public CurrencyType CurrencyType { get; set; } = CurrencyType.IRanianRial;
+        public int Amount { get; set; }
+        public string CallBackUrl { get; set; } = string.Empty;
+
         /// <summary>
         /// Gets or sets the merchant identifier.
         /// </summary>
         /// <exception cref="Exceptions.UnsupportedProviderOptionException"> Throw if used with any other payment provider.</exception>
         [SupportedProviders(PaymentProvider.ZarinPal)]
         public string MerchantId { get; set; } = string.Empty;
-
-        public string Description { get; set; } = string.Empty;
-
-        public CurrencyType CurrencyType { get; set; } = CurrencyType.IRanianRial;
-
-        public int Amount { get; set; }
-
-        public string CallBackUrl { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the referrer identifier.
