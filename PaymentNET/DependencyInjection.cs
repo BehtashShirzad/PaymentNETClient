@@ -11,7 +11,7 @@ public static class DependencyInjection
     public static PaymentBuilder AddPaymentNetServices(this IServiceCollection services)
     {
         services.AddTransient<IPaymentServiceFactory, PaymentServiceFactory>();
-        services.AddTransient<IRestClient, RestClient>();
+        
         services.AddHybridCache();
         services.AddSingleton<ITokenCache, HybridTokenCache>();
         return new PaymentBuilder(services);

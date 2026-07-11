@@ -1,6 +1,6 @@
 ﻿namespace PaymentNET.Providers.ZarinPal
 {
-    public abstract class ZarinPalOptions
+    public   class ZarinPalOptions
     {
         public string MerchantId { get; set; } = string.Empty;
         public bool Sandbox { get; set; }

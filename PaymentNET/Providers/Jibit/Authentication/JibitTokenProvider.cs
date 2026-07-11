@@ -71,8 +71,9 @@ internal sealed class JibitTokenProvider : IJibitTokenProvider
 
             if (!response.IsSuccessStatusCode)
             {
+                var error = await response.Content.ReadAsStringAsync(cancellationToken);
                 throw new PaymentException(
-                    $"Jibit authentication failed. StatusCode: {response.StatusCode}");
+                    $"Jibit authentication failed. StatusCode: {response.StatusCode} By Response: {error}");
             }
 
 

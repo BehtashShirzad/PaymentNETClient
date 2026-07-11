@@ -1,12 +1,16 @@
 ﻿using PaymentNET.Standard.Contracts;
 using PaymentNET.Standard.Dtos.Requests;
+using PaymentNET.Standard.Dtos.Responses;
 
 namespace PaymentNET.Providers.ZarinPal;
 
 public class ZarinPalPaymentService:IPaymentService
 {
-    public Task CreatePaymentRequest(PaymentRequestDto paymentRequestDto)
+   
+
+    public Task<CreatePaymentResponseDto> CreatePaymentRequest(PaymentRequestDto request, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return Task.FromResult(new CreatePaymentResponseDto());
+       
     }
 }
