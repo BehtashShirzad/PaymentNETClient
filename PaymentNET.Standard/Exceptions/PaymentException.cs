@@ -2,18 +2,18 @@
 
 namespace PaymentNET.Standard.Exceptions
 {
-    public abstract class PaymentException : Exception
+    public   class PaymentException : Exception
     {
-        protected PaymentException()
+        public PaymentException()
         {
         }
 
-        protected PaymentException(string message)
+        public PaymentException(string message)
             : base(message)
         {
         }
 
-        protected PaymentException(string message, Exception innerException)
+        public PaymentException(string message, Exception innerException)
             : base(message, innerException)
         {
         }
