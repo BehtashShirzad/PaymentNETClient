@@ -29,7 +29,11 @@ public sealed class RestClient : IRestClient
             requestMessage,
             cancellationToken);
 
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            var result = await response.Content.ReadAsStringAsync(cancellationToken);
+         throw  new Exception(result);
+        }
 
         return await response.Content
             .ReadFromJsonAsync<TResponse>(cancellationToken);

@@ -1,8 +1,12 @@
-﻿namespace PaymentNET.Standard.Enums
+﻿using System.ComponentModel;
+
+namespace PaymentNET.Standard.Enums
 {
     public enum CurrencyType
     {
-        IRanianRial=0,
-        IRanianToman=1
+        [Description("IRANIAN RIAL")]
+        IRR=0,
+        [Description("IRANIAN TOMAN")]
+        IRT=1
     }
 }

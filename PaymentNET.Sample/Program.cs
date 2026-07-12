@@ -26,11 +26,18 @@ var host = Host.CreateDefaultBuilder(args)
 var factory = host.Services
     .GetRequiredService<IPaymentServiceFactory>();
 
- 
 
-var tokenProvider = host.Services
-    .GetRequiredService<IJibitTokenProvider>();
+var service = factory.GetServiceProvider(PaymentProvider.Jibit);
 
+var resul = await service.CreatePaymentRequest(new ()
+{
+   Amount = 100000,
+   CallBackUrl = "https://behtashshirzad.ir/api/verify",
+   ClientReferenceNumber = Guid.NewGuid().ToString(),
+   PayerMobileNumber = "09376794095",
+   Description = "test",
+   UserIdentifier = "m.shirzad"
+   
+});
 
-var token = await tokenProvider
-    .GetAccessTokenAsync();
+var s = 0;

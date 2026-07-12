@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using PaymentNET.Standard.Attributes;
 using PaymentNET.Standard.Enums;
 
@@ -10,7 +11,8 @@ namespace PaymentNET.Standard.Dtos.Requests
     public class PaymentRequestDto
     {
         public string Description { get; set; } = string.Empty;
-        public CurrencyType CurrencyType { get; set; } = CurrencyType.IRanianRial;
+        public CurrencyType CurrencyType { get; set; } = CurrencyType.IRR;
+
         public int Amount { get; set; }
         public string CallBackUrl { get; set; } = string.Empty;
 
@@ -63,7 +65,7 @@ namespace PaymentNET.Standard.Dtos.Requests
         /// </summary>
         /// <exception cref="Exceptions.UnsupportedProviderOptionException"> Throw if used with any other payment provider.</exception>
         [SupportedProviders(PaymentProvider.Jibit)]
-        public bool CheckPayerMobileNumber { get; set; }
+        public bool CheckPayerMobileNumber { get; set; } = false;
 
         /// <summary>
         /// Gets or sets the client reference number.
@@ -77,7 +79,7 @@ namespace PaymentNET.Standard.Dtos.Requests
         /// </summary>
         /// <exception cref="Exceptions.UnsupportedProviderOptionException"> Throw if used with any other payment provider.</exception>
         [SupportedProviders(PaymentProvider.Jibit)]
-        public string PayerCardNumber { get; set; } = string.Empty;
+        public string? PayerCardNumber { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the payer reference identifier.
@@ -91,6 +93,13 @@ namespace PaymentNET.Standard.Dtos.Requests
         /// </summary>
         /// <exception cref="Exceptions.UnsupportedProviderOptionException"> Throw if used with any other payment provider.</exception>
         [SupportedProviders(PaymentProvider.Jibit)]
-        public Switching Switching { get; set; } = new Switching();
+        public Switching? Switching { get; set; } = null;
+
+        /// <summary>
+        /// Gets or sets the User Identifier
+        /// </summary>
+        /// <exception cref="Exceptions.UnsupportedProviderOptionException"> Throw if used with any other payment provider.</exception>
+        [SupportedProviders(PaymentProvider.Jibit)]
+        public string UserIdentifier { get; set; } = string.Empty;
     }
 }

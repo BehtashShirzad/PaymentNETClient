@@ -1,4 +1,7 @@
-﻿using PaymentNET.Contracts;
+﻿using Mapster;
+using PaymentNET.Contracts;
+using PaymentNET.Providers.Jibit.Dtos.Requests;
+using PaymentNET.Providers.Jibit.Dtos.Response;
 using PaymentNET.Standard.Contracts;
 using PaymentNET.Standard.Dtos.Requests;
 using PaymentNET.Standard.Dtos.Responses;
@@ -21,12 +24,14 @@ public sealed class JibitPaymentService : IPaymentService
         PaymentRequestDto paymentRequestDto,
         CancellationToken cancellationToken = default)
     {
+
+        var dto = paymentRequestDto.Adapt<CreatePaymentRequest>();
         var response =
             await _restClient.PostAsync<
-                PaymentRequestDto,
-                CreatePaymentResponseDto>(
+                CreatePaymentRequest,
+                CreatePaymentResponse>(
                     JibitEndpoints.PaymentRequest,
-                    paymentRequestDto,
+                    dto,
                     cancellationToken: cancellationToken);
 
 
@@ -37,6 +42,6 @@ public sealed class JibitPaymentService : IPaymentService
         }
 
 
-        return response;
+        return response.Adapt<CreatePaymentResponseDto>();
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Net;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using PaymentNET.Contracts;
 using PaymentNET.Helper;
@@ -43,6 +44,13 @@ public static class JibitBuilderExtensions
                     .Value;
 
                 client.BaseAddress = new Uri(options.BaseUrl);
+            }) .ConfigurePrimaryHttpMessageHandler(() =>
+            {
+                return new SocketsHttpHandler
+                {
+                    Proxy = new WebProxy("socks5://127.0.0.1:1080"),
+                    UseProxy = true
+                };
             })
             .AddHttpMessageHandler<JibitAuthenticationHandler>();
 
