@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using Microsoft.Extensions.Logging;
 using PaymentNET.Contracts;
 
 namespace PaymentNET.Helper;
@@ -6,10 +7,12 @@ namespace PaymentNET.Helper;
 public sealed class RestClient : IRestClient
 {
     private readonly HttpClient _httpClient;
+    private readonly ILogger<RestClient> _logger;
 
-    public RestClient(HttpClient httpClient)
+    public RestClient(HttpClient httpClient, ILogger<RestClient> logger)
     {
         _httpClient = httpClient;
+        _logger = logger;
     }
 
     public async Task<TResponse?> PostAsync<TRequest, TResponse>(
@@ -24,14 +27,15 @@ public sealed class RestClient : IRestClient
             options);
 
         requestMessage.Content = JsonContent.Create(request);
-
+        _logger.LogInformation("Invoking HTTP Request");
         var response = await _httpClient.SendAsync(
             requestMessage,
             cancellationToken);
-
+        _logger.LogInformation("Request Finished with code:{Code}",response.StatusCode);
         if (!response.IsSuccessStatusCode)
         {
             var result = await response.Content.ReadAsStringAsync(cancellationToken);
+            _logger.LogInformation("Failed HTTP Request Error:{result}",result);
          throw  new Exception(result);
         }
 
