@@ -34,9 +34,9 @@ var resul = await service.CreatePaymentRequest(new ()
    Amount = 100000,
    CallBackUrl = "https://behtashshirzad.ir/api/verify",
    ClientReferenceNumber = Guid.NewGuid().ToString(),
-   PayerMobileNumber = "09376794095",
+   PayerMobileNumber = " ",
    Description = "test",
-   UserIdentifier = "m.shirzad"
+   UserIdentifier = "m. "
    
 });
 
