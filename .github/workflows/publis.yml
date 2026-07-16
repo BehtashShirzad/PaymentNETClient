@@ -27,7 +27,17 @@ jobs:
       - name: Build
         run: dotnet build -c Release --no-restore
 
-      - name: Pack
+      - name: Pack PaymentNET.Standard
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+
+          dotnet pack PaymentNET.Standard/PaymentNET.Standard.csproj \
+            -c Release \
+            --no-build \
+            -p:PackageVersion=$VERSION \
+            -o ./artifacts
+
+      - name: Pack PaymentNET
         run: |
           VERSION=${GITHUB_REF_NAME#v}
 
