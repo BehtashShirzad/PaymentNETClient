@@ -44,7 +44,7 @@ internal sealed class JibitTokenProvider : IJibitTokenProvider
 
         try
         {
-            // دوباره چک می‌کنیم شاید Thread قبلی گرفته باشد
+
             cachedToken = await _cache.GetAsync<string>(
                 CacheKey,
                 cancellationToken);

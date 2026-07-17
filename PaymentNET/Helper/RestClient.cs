@@ -15,7 +15,7 @@ public sealed class RestClient : IRestClient
         _logger = logger;
     }
 
-    public async Task<TResponse?> PostAsync<TRequest, TResponse>(
+    public async Task<TResponse> PostAsync<TRequest, TResponse>(
         string endpoint,
         TRequest request,
         RestRequestOptions? options = null,
@@ -40,10 +40,10 @@ public sealed class RestClient : IRestClient
         }
 
         return await response.Content
-            .ReadFromJsonAsync<TResponse>(cancellationToken);
+            .ReadFromJsonAsync<TResponse>(cancellationToken)?? throw new Exception("Failed HTTP Request Error");
     }
 
-    public async Task<TResponse?> GetAsync<TResponse>(
+    public async Task<TResponse> GetAsync<TResponse>(
         string endpoint,
         RestRequestOptions? options = null,
         CancellationToken cancellationToken = default)
@@ -60,7 +60,7 @@ public sealed class RestClient : IRestClient
         response.EnsureSuccessStatusCode();
 
         return await response.Content
-            .ReadFromJsonAsync<TResponse>(cancellationToken);
+            .ReadFromJsonAsync<TResponse>(cancellationToken)?? throw new Exception("Failed HTTP Request Error");
     }
 
 

@@ -38,13 +38,6 @@ public sealed class JibitPaymentService : IPaymentService
                 cancellationToken: cancellationToken);
 
 
-        if (response is null)
-        {
-            throw new Exception(
-                "Jibit create payment returned empty response.");
-        }
-
-
         return response.Adapt<CreatePaymentResponseDto>();
     }
 }
