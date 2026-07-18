@@ -35,7 +35,7 @@
         <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" Version="10.7.0"/>
         <PackageReference Include="Mapster" Version="10.0.10"/>
         <PackageReference Include="Mapster.DependencyInjection" Version="10.0.10"/>
-        <PackageReference Include="PaymentNet.Standard" Version="1.0.6" />
+        <PackageReference Include="PaymentNet.Standard" Version="1.0.7" />
     </ItemGroup>
 
 
