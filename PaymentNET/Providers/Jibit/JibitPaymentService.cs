@@ -40,4 +40,18 @@ public sealed class JibitPaymentService : IPaymentService
 
         return response.Adapt<CreatePaymentResponseDto>();
     }
+
+    public async Task<FilterPurchaseResponseDto> FilterPurchase(GetPurchasesRequestDto? request = null, CancellationToken cancellationToken = default)
+    {
+        var dto = request.Adapt<FilterPurchaseRequest>();
+     
+        var response =
+            await _restClient.GetAsync<PurchaseFilterResponse>(
+                JibitEndpoints.PurchaseFilter,
+                queries:request,
+                cancellationToken: cancellationToken);
+
+
+        return response.Adapt<FilterPurchaseResponseDto>();
+    }
 }

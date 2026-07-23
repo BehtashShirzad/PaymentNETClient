@@ -1,7 +1,7 @@
 ﻿using System.Net.Http.Json;
 using Microsoft.Extensions.Logging;
 using PaymentNET.Contracts;
-
+using Microsoft.AspNetCore.WebUtilities;
 namespace PaymentNET.Helper;
 
 public sealed class RestClient : IRestClient
@@ -63,7 +63,51 @@ public sealed class RestClient : IRestClient
             .ReadFromJsonAsync<TResponse>(cancellationToken)?? throw new Exception("Failed HTTP Request Error");
     }
 
+    public async Task<TResponse> GetAsync<TResponse>(
+        string endpoint, 
+        object? queries = null, 
+        CancellationToken cancellationToken = default)
+    {
+        var uri = BuildUriWithQuery(endpoint, queries);
 
+        using var requestMessage = CreateRequest(HttpMethod.Get, uri, options: null);
+
+        _logger.LogInformation("Invoking HTTP Request to {Uri}", uri);
+
+        var response = await _httpClient.SendAsync(requestMessage, cancellationToken);
+
+        _logger.LogInformation("Request Finished with code:{Code}", response.StatusCode);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var result = await response.Content.ReadAsStringAsync(cancellationToken);
+            _logger.LogInformation("Failed HTTP Request Error:{result}", result);
+            throw new Exception(result);
+        }
+
+        return await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken) 
+               ?? throw new Exception("Failed HTTP Request Error");
+    }
+
+    private static string BuildUriWithQuery(string endpoint, object? queries)
+    {
+        if (queries is null)
+            return endpoint;
+
+        var queryParams = queries.GetType()
+            .GetProperties()
+            .Where(p => p.GetValue(queries) != null)
+            .ToDictionary(
+                p => p.Name,
+                p => p.GetValue(queries)?.ToString()
+            );
+
+        if (!queryParams.Any())
+            return endpoint;
+
+        return QueryHelpers.AddQueryString(endpoint, queryParams!);
+    }
+    
     private static HttpRequestMessage CreateRequest(
         HttpMethod method,
         string endpoint,

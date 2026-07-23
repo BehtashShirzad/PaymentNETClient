@@ -10,6 +10,7 @@ namespace PaymentNET.Standard.Contracts
         Task<CreatePaymentResponseDto> CreatePaymentRequest(
             PaymentRequestDto request,
             CancellationToken cancellationToken = default);
-        
+
+        Task<FilterPurchaseResponseDto> FilterPurchase(GetPurchasesRequestDto? request = null, CancellationToken cancellationToken = default);
     }
 }

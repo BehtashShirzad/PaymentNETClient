@@ -13,4 +13,9 @@ public class ZarinPalPaymentService:IPaymentService
         return Task.FromResult(new CreatePaymentResponseDto());
        
     }
+
+    public Task<FilterPurchaseResponseDto> FilterPurchase(GetPurchasesRequestDto? request = null, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
 }

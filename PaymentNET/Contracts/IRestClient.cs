@@ -12,4 +12,9 @@ public interface IRestClient
         string endpoint,
         RestRequestOptions? options = null,
         CancellationToken cancellationToken = default);
+    
+    Task<TResponse> GetAsync<TResponse>(
+        string endpoint,
+        object? queries = null,
+        CancellationToken cancellationToken = default);
 }

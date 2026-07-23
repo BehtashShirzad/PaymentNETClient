@@ -28,16 +28,4 @@ var factory = host.Services
 
 
 var service = factory.GetServiceProvider(PaymentProvider.Jibit);
-
-var resul = await service.CreatePaymentRequest(new ()
-{
-   Amount = 100000,
-   CallBackUrl = "https://behtashshirzad.ir/api/verify",
-   ClientReferenceNumber = Guid.NewGuid().ToString(),
-   PayerMobileNumber = " ",
-   Description = "test",
-   UserIdentifier = "m. "
-   
-});
-
-var s = 0;
+ 
